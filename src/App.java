@@ -33,6 +33,8 @@ public class App extends PApplet {
     float pothole6X;
     float pothole600X;
     float pothole6Y = -975;
+    // point counter variable
+    int points = 0;
 
     public void setup() {
         // background is green
@@ -66,6 +68,7 @@ public class App extends PApplet {
                 if (pothole1Y >= 850) {
                     pothole1Y = -50;
                     pothole1X = random(0, 360);
+                    points++;
                 }
             }
             // pothole 2
@@ -75,6 +78,7 @@ public class App extends PApplet {
                 if (pothole2Y >= 850) {
                     pothole2Y = -50;
                     pothole2X = random(0, 360);
+                    points++;
                 }
             }
             // pothole 3
@@ -84,6 +88,7 @@ public class App extends PApplet {
                 if (pothole3Y >= 850) {
                     pothole3Y = -50;
                     pothole3X = random(0, 360);
+                    points++;
                 }
             }
             // pothole 4
@@ -93,6 +98,7 @@ public class App extends PApplet {
                 if (pothole4Y >= 850) {
                     pothole4Y = -50;
                     pothole4X = random(0, 360);
+                    points++;
                 }
             }
             // pothole 1.2
@@ -102,35 +108,42 @@ public class App extends PApplet {
                 if (pothole1Y >= 850) {
                     pothole1Y = -50;
                     pothole100X = random(425, 700);
+                    points++;
                 }
             }
+               
             // pothole 2.2
             ellipse(pothole200X, pothole2Y, 70, 70);
             if (pothole2Y < 850) {
                 pothole2Y += 3.5;
-                if (pothole2Y >= 850) {
-                    pothole2Y = -50;
-                    pothole200X = random(425, 700);
-                }
+            if (pothole2Y >= 850) {
+                pothole2Y = -50;
+                pothole200X = random(425, 700);
+                points++;
             }
+        }
             // pothole 3.2
             ellipse(pothole300X, pothole3Y, 70, 70);
             if (pothole3Y < 850) {
-                pothole3Y += 3.5;
+                pothole3Y += 3.5; 
                 if (pothole3Y >= 850) {
                     pothole3Y = -50;
                     pothole300X = random(425, 700);
+                    points++;
                 }
             }
+            
             // pothole 4.2
             ellipse(pothole400X, pothole4Y, 70, 70);
             if (pothole4Y < 850) {
-                pothole4Y += 3.5;
+                pothole4Y += 3.5;  
                 if (pothole4Y >= 850) {
                     pothole4Y = -50;
                     pothole400X = random(425, 700);
+                    points++;
                 }
-                 // make the character
+            }
+            // make the character
             fill(201, 172, 85);
             strokeWeight(1);
             ellipse(characterX, 500, 50, 50);
@@ -141,38 +154,41 @@ public class App extends PApplet {
             if (moveRight == true) {
                 characterX += 3;
             }
-            }
-            if (detectCollision(pothole1X, pothole1Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole2X, pothole2Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole3X, pothole3Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole4X, pothole4Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole100X, pothole1Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole200X, pothole2Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole300X, pothole3Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-            if (detectCollision(pothole400X, pothole4Y, 25, characterX, 500, 15)) {
-                collisionDetected = true; // Set the flag to true when collision occurs
-            }
-        } else {
-            background(5);
-            fill(255, 0, 0); // Red
-            textSize(32);
-            text("You lose!", width / 2 - 150, height / 2);
+        
+        if (detectCollision(pothole1X, pothole1Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
         }
+        if (detectCollision(pothole2X, pothole2Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole3X, pothole3Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole4X, pothole4Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole100X, pothole1Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole200X, pothole2Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole300X, pothole3Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+        if (detectCollision(pothole400X, pothole4Y, 25, characterX, 500, 15)) {
+            collisionDetected = true; // Set the flag to true when collision occurs
+        }
+    } else {
+        background(5);
+        fill(255, 0, 0); // Red
+        textSize(50);
+        textAlign(CENTER, CENTER - 175); // Center the text horizontally and vertically
+        text("You lose!", width / 2, height / 2);
+        textSize(30);
+        text("You got " + points + " points", width / 3, height / 4);}
     }
+
 
     // Function to detect collision between two circles
     public boolean detectCollision(float x1, float y1, float r1, float x2, float y2, float r2) {
