@@ -59,35 +59,32 @@ public class App extends PApplet {
     public void draw() {
         if (collisionDetected == 0) {
             startScreen();
-        }
-        if (collisionDetected == 1) {
+        } else if (collisionDetected == 1) {
             // refresh background
             background(26, 189, 8);
             // potholes
             stroke(1);
-            fill(50);
-            // pothole 1
-            ellipse(pothole1X, pothole1Y, 70, 70);
-            potHoleMove();
+            fill(1, 66, 14);
+            treeMove();
             // make the character
             fill(201, 172, 85);
             strokeWeight(1);
             ellipse(characterX, 500, 50, 50);
             // move the character
             if (moveLeft == true) {
-                characterX -= speed/10 - 0.5;
+                characterX -= speed / 10 - 0.5;
             }
             if (moveRight == true) {
-                characterX += speed/10 - 0.5;
+                characterX += speed / 10 - 0.5;
             }
             checkingCollision();
             fill(255);
             textSize(30);
             text("Score: " + points, 25, 20);
-            text("Speed: " + speed/10, 25, 50);
+            text("Speed: " + speed / 10, 25, 50);
             changeSpeed();
-            
-        } else if(collisionDetected == 2) {
+
+        } else {
             endScreen();
             playAgain();
         }
@@ -95,10 +92,10 @@ public class App extends PApplet {
 
     public void playAgain() {
         if (mousePressed && mouseX >= 250 && mouseX <= 450 &&
-                    mouseY >= 250 && mouseY <= 350) {
-                collisionDetected = 1;
-                reset();
-            
+                mouseY >= 250 && mouseY <= 350) {
+            collisionDetected = 1;
+            reset();
+
         }
     }
 
@@ -110,9 +107,11 @@ public class App extends PApplet {
         rect(250, 250, 200, 100);
         fill(3, 252, 32);
         textSize(30);
-        text("Start", 290, 310);
+        text("Start", 320, 310);
         playAgain();
-        text("you are running to your house through the forest. Dont run into")
+        text("you are running through the forest", 50, 50);
+        text("to your house. Dont run into the trees.", 50, 80);
+        text(" Use left and right arrows to move.", 50, 110);
     }
 
     // Function to detect collision between two circles
@@ -127,7 +126,7 @@ public class App extends PApplet {
         fill(255);
         textSize(30);
         text("Score: " + points, 25, 20);
-        text("Your speed was " + speed/10, 25, 50);
+        text("Your speed was " + speed / 10, 25, 50);
 
         strokeWeight(5);
         stroke(3, 252, 32);
@@ -136,12 +135,14 @@ public class App extends PApplet {
         fill(3, 252, 32);
         text("Play again", 290, 310);
     }
+
     public void winOrLose() {
-        //if()
+        // if()
         fill(255, 0, 0); // Red
         textSize(50);
         text("You lose!", 260, 200);
     }
+
     public void checkingCollision() {
         if (detectCollision(pothole1X, pothole1Y, 25, characterX, 500, 15)) {
             collisionDetected = 2; // Set the flag to true when collision occurs
@@ -169,77 +170,35 @@ public class App extends PApplet {
         }
     }
 
-    public void potHoleMove() {
-        if (pothole1Y < 850) {
-            pothole1Y += speed/10;
-            if (pothole1Y >= 850) {
-                pothole1Y = -50;
-                pothole1X = random(0, 360);
-            }
-        }
-        // pothole 2
-        ellipse(pothole2X, pothole2Y, 70, 70);
-        if (pothole2Y < 850) {
-            pothole2Y += speed/10;
-            if (pothole2Y >= 850) {
-                pothole2Y = -50;
-                pothole2X = random(0, 360);
-            }
-        }
-        // pothole 3
-        ellipse(pothole3X, pothole3Y, 70, 70);
-        if (pothole3Y < 850) {
-            pothole3Y += speed/10;
-            if (pothole3Y >= 850) {
-                pothole3Y = -50;
-                pothole3X = random(0, 360);
-            }
-        }
-        // pothole 4
-        ellipse(pothole4X, pothole4Y, 70, 70);
-        if (pothole4Y < 850) {
-            pothole4Y += speed/10;
-            if (pothole4Y >= 850) {
-                pothole4Y = -50;
-                pothole4X = random(0, 360);
-            }
-        }
-        // pothole 1.2
-        ellipse(pothole100X, pothole1Y, 70, 70);
-        if (pothole1Y < 850) {
-            pothole1Y += speed/10;
-            if (pothole1Y >= 850) {
-                pothole1Y = -50;
-                pothole100X = random(425, 700);
-            }
-        }
+    public void treeMove() {
+        treesMove1(pothole1X, pothole1Y);
+        treesMove1(pothole2X, pothole2Y);
+        treesMove1(pothole3X, pothole3Y);
+        treesMove1(pothole4X, pothole4Y);
+        treesMove2(pothole100X, pothole1Y);
+        treesMove2(pothole200X, pothole2Y);
+        treesMove2(pothole300X, pothole3Y);
+        treesMove2(pothole400X, pothole4Y);
+    }
 
-        // pothole 2.2
-        ellipse(pothole200X, pothole2Y, 70, 70);
-        if (pothole2Y < 850) {
-            pothole2Y += speed/10;
-            if (pothole2Y >= 850) {
-                pothole2Y = -50;
-                pothole200X = random(425, 700);
+    public void treesMove2(float x, float y) {
+        ellipse(x, y, 70, 70);
+        if (y < 850) {
+            y += speed / 10;
+            if (y >= 850) {
+                y = -50;
+                x = random(425, 700);
             }
         }
-        // pothole 3.2
-        ellipse(pothole300X, pothole3Y, 70, 70);
-        if (pothole3Y < 850) {
-            pothole3Y += speed/10;
-            if (pothole3Y >= 850) {
-                pothole3Y = -50;
-                pothole300X = random(425, 700);
-            }
-        }
+    }
 
-        // pothole 4.2
-        ellipse(pothole400X, pothole4Y, 70, 70);
-        if (pothole4Y < 850) {
-            pothole4Y += speed/10;
-            if (pothole4Y >= 850) {
-                pothole4Y = -50;
-                pothole400X = random(425, 700);
+    public void treesMove1(float x, float y) {
+        ellipse(x, y, 70, 70);
+        if (y < 850) {
+            y += speed / 10;
+            if (y >= 850) {
+                y = -50;
+                x = random(0, 300);
             }
         }
     }
@@ -273,11 +232,11 @@ public class App extends PApplet {
         points = 0;
         speed = 30;
     }
-   
-   public void changeSpeed() {
-    if(frameCount % 300 == 0) {
-        speed++;
-        points ++;
+
+    public void changeSpeed() {
+        if (frameCount % 300 == 0) {
+            speed++;
+            points++;
+        }
     }
-   }
 }
