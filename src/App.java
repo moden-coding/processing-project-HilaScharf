@@ -15,22 +15,20 @@ public class App extends PApplet {
 
     // the character starts in the middle of the screen
     float characterX = 350;
-    // potholes start x, y
-    float pothole1X;
-    float pothole100X;
-    float pothole1Y = -50;
-    float pothole2X;
-    float pothole200X;
-    float pothole2Y = -225;
-    float pothole3X;
-    float pothole300X;
-    float pothole3Y = -400;
-    float pothole4X;
-    float pothole400X;
-    float pothole4Y = -575;
-    float pothole5X;
-    float pothole500X;
-    float pothole5Y = -750;
+    //coordinates for each tree
+    PVector tree1 = new PVector(random(0, 360), -50);
+    PVector tree100 = new PVector(random(425, 700), -50);
+    PVector tree2 = new PVector(random(0, 360), -225);
+    PVector tree200 = new PVector(random(425, 700), -225);
+    PVector tree3 = new PVector(random(0, 360), -400);
+    PVector tree300 = new PVector(random(425, 700), -400);
+    PVector tree4 = new PVector(random(0, 360), -575);
+    PVector tree400 = new PVector(random(425, 700), -575);
+    PVector tree5 = new PVector(random(0, 360), -750);
+    PVector tree500 = new PVector(random(425, 700), -750);
+    PVector tree6 = new PVector(random(0, 360), -975);
+    PVector tree600 = new PVector(random(425, 700), -975);
+
     float pothole6X;
     float pothole600X;
     float pothole6Y = -975;
@@ -40,15 +38,6 @@ public class App extends PApplet {
     public void setup() {
         // background is green
         background(26, 189, 8);
-        // random x value for potholes, they should not be touching
-        pothole1X = random(0, 360);
-        pothole2X = random(0, 360);
-        pothole3X = random(0, 360);
-        pothole4X = random(0, 360);
-        pothole100X = random(425, 700);
-        pothole200X = random(425, 700);
-        pothole300X = random(425, 700);
-        pothole400X = random(425, 700);
     }
 
     public void settings() {
@@ -77,7 +66,11 @@ public class App extends PApplet {
             if (moveRight == true) {
                 characterX += speed / 10 - 0.5;
             }
-            checkingCollision();
+            checkingCollision(tree1);
+            checkingCollision(tree1);
+            checkingCollision(tree1);
+            checkingCollision(tree1);
+            checkingCollision(tree1);
             fill(255);
             textSize(30);
             text("Score: " + points, 25, 20);
@@ -116,10 +109,10 @@ public class App extends PApplet {
 
     // Function to detect collision between two circles
     public boolean detectCollision(float x1, float y1, float r1, float x2, float y2, float r2) {
-        float distance = dist(x1, y1, x2, y2); // Calculate the distance between the centers
-        return distance <= r1 + r2; // Collision if distance is less than or equal to sum of radii
+        float distance = dist(x1, y1, x2, y2); 
+        return distance <= r1 + r2;
     }
-
+        //display after you lose
     public void endScreen() {
         background(5);
         winOrLose();
@@ -135,7 +128,7 @@ public class App extends PApplet {
         fill(3, 252, 32);
         text("Play again", 290, 310);
     }
-
+    //text that says you lose
     public void winOrLose() {
         // if()
         fill(255, 0, 0); // Red
@@ -143,62 +136,41 @@ public class App extends PApplet {
         text("You lose!", 260, 200);
     }
 
-    public void checkingCollision() {
-        if (detectCollision(pothole1X, pothole1Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole2X, pothole2Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole3X, pothole3Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole4X, pothole4Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole100X, pothole1Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole200X, pothole2Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole300X, pothole3Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
-        }
-        if (detectCollision(pothole400X, pothole4Y, 25, characterX, 500, 15)) {
-            collisionDetected = 2; // Set the flag to true when collision occurs
+    public void checkingCollision(PVector treeNumber) {
+        if (detectCollision(treeNumber.x, treeNumber.y, 25, characterX, 500, 15)) {
+            collisionDetected = 2; 
         }
     }
 
     public void treeMove() {
-        treesMove1(pothole1X, pothole1Y);
-        treesMove1(pothole2X, pothole2Y);
-        treesMove1(pothole3X, pothole3Y);
-        treesMove1(pothole4X, pothole4Y);
-        treesMove2(pothole100X, pothole1Y);
-        treesMove2(pothole200X, pothole2Y);
-        treesMove2(pothole300X, pothole3Y);
-        treesMove2(pothole400X, pothole4Y);
+        treesMove1(tree1);
+        treesMove1(tree2);
+        treesMove1(tree3);
+        treesMove1(tree4);
+        treesMove2(tree100);
+        treesMove2(tree200);
+        treesMove2(tree300);
+        treesMove2(tree400);
     }
 
-    public void treesMove2(float x, float y) {
-        ellipse(x, y, 70, 70);
-        if (y < 850) {
-            y += speed / 10;
-            if (y >= 850) {
-                y = -50;
-                x = random(425, 700);
+    public void treesMove2(PVector treeX00) {
+        ellipse(treeX00.x, treeX00.y, 70, 70);
+        if (treeX00.y < 850) {
+            treeX00.y += speed / 10;
+            if (treeX00.y >= 850) {
+                treeX00.y = -50;
+                treeX00.x = random(425, 700);
             }
         }
     }
 
-    public void treesMove1(float x, float y) {
-        ellipse(x, y, 70, 70);
-        if (y < 850) {
-            y += speed / 10;
-            if (y >= 850) {
-                y = -50;
-                x = random(0, 300);
+    public void treesMove1(PVector tree) {
+        ellipse(tree.x, tree.y, 70, 70);
+        if (tree.y < 850) {
+            tree.y += speed / 10;
+            if (tree.y >= 850) {
+                tree.y = -50;
+                tree.x = random(0, 300);
             }
         }
     }
@@ -222,12 +194,18 @@ public class App extends PApplet {
         // the character starts in the middle of the screen
         characterX = 350;
         // potholes start y
-        pothole1Y = -50;
-        pothole2Y = -225;
-        pothole3Y = -400;
-        pothole4Y = -575;
-        pothole5Y = -750;
-        pothole6Y = -975;
+        tree1.y = -50;
+        tree2.y = -225;
+        tree3.y = -400;
+        tree4.y = -575;
+        tree5.y = -750;
+        tree6.y = -975;
+        tree100.y = -50;
+        tree200.y = -225;
+        tree300.y = -400;
+        tree400.y = -575;
+        tree500.y = -750;
+        tree600.y = -975;
         // point counter variable
         points = 0;
         speed = 30;
