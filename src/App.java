@@ -67,10 +67,17 @@ public class App extends PApplet {
                 characterX += speed / 10 - 0.5;
             }
             checkingCollision(tree1);
-            checkingCollision(tree1);
-            checkingCollision(tree1);
-            checkingCollision(tree1);
-            checkingCollision(tree1);
+            checkingCollision(tree100);
+            checkingCollision(tree2);
+            checkingCollision(tree200);
+            checkingCollision(tree3);
+            checkingCollision(tree300);
+            checkingCollision(tree4);
+            checkingCollision(tree400);
+            checkingCollision(tree5);
+            checkingCollision(tree500);
+            checkingCollision(tree6);
+            checkingCollision(tree600);
             fill(255);
             textSize(30);
             text("Score: " + points, 25, 20);
